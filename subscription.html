@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>adsfdasfadsfadsfafds</title>
+    </head>
+    <body>
+        <div class="subscription-box">
+            <form id="emailForm" onsubmit="validateForm()">
+                <h1>Subscribe Now!</h1>
+                <label for="email">Email address</label><br/>
+                <input type="text" id="email-input" name="email" oninput="validateEmail()" onblur="validateEmailDeFocus()">
+                <div id="error-message">
+                    A valid email is required.
+                </div>
+                <input type="submit" id="subscribe-btn" value="Subscribe">
+            </form>
+            <div class="success-box" id="success-box">
+                <h1>Thank you</h1>
+                <p>Your subscription was a success!</p>
+            </div>
+        </div>
+    </body>
+    <style>
+        body {
+            font-family: Helvetica;
+            font-size: 1em;
+        }
+        h1 {
+            font-family: Helvetica;
+            font-size: x-large;
+            font-weight: bold;
+        }
+        div.subscription-box {
+            border-style: solid; 
+            border-radius: 1em;
+            border-width: 1.7px;
+            border-color: gray;
+            width: 30em;
+            padding: 1em;
+        }
+        input[type=text] {
+            border-style: solid; 
+            border-radius: 0.5em;
+            border-width: 1px;
+            height: 3em;
+            width: 100%;
+            margin-top: 1em;
+            padding-left: 0.5em;
+            transition: 0.4s;
+        }
+        input[type=text]:focus {
+            outline: none;
+            border-color: #9ecaed;
+            box-shadow: 0 0 6px #9ecaed;
+        }
+        #subscribe-btn {
+            border-style: none;
+            border-radius: 0.5em;
+            background-color: #299c44;
+            margin-top: 1em;
+            color: whitesmoke;
+            font-size: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 0.6em;
+            padding-bottom: 0.6em;
+            transition: 0.3s;
+        }
+        #subscribe-btn:focus {
+            outline: none;
+            border-style: solid;
+            border-color: lightgreen;
+            border-width: 5px;
+        }
+        #error-message {
+            margin-top: 0.5em;
+            font-size: 0.8em;
+            color: red;
+            display: none;
+        }
+        .success-box {
+            border-style: solid; 
+            border-radius: 0.7em;
+            border-width: 1.7px;
+            border-color: #bfe3c7;
+            background-color: #cfead6;
+            color: #1c5029;
+            width: 90%;
+            padding: 1em;
+            display: none;
+        }
+    </style>
+    <script>
+        var isValid = false;
+        const emailRegX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        function validateEmail() {
+            if(!emailRegX.test(document.getElementById("email-input").value)) {
+                document.getElementById("error-message").style.display = "block";
+                var inputStyle = document.querySelector("input[type=text]").style;
+                inputStyle.borderColor = "red";
+                inputStyle.boxShadow = "0px 0px 6px red";
+                isValid = false;
+                return false;
+            } else {
+                document.getElementById("error-message").style.display = "none";
+                var inputStyle = document.querySelector("input[type=text]").style;
+                inputStyle.borderColor = "";
+                inputStyle.boxShadow = "0px 0px 6px #9ecaed";
+                isValid = true;
+                return true;
+            }
+        }
+        function validateEmailDeFocus() {
+            var inputStyle = document.querySelector("input[type=text]").style;
+            if(isValid) {
+                inputStyle.borderColor = "";
+            } else {
+                inputStyle.borderColor = "red";
+            }
+            inputStyle.boxShadow = "none";
+        }
+        function validateForm() {
+            event.preventDefault();
+            if(validateEmail()) {
+                document.getElementById("emailForm").style.display = "none";
+                document.getElementById("success-box").style.display = "block";
+            }
+        }
+    </script>
+</html>
